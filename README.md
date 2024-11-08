@@ -36,7 +36,7 @@ And then running `sudo docker-compose up --build`
 * User Interaction Features like:
   * Blocking
   * Adding
- 	* Group Chats
+  * Group Chats
 * Encrypted Chats using Public Key Technology.
 * Malicious Content flagging system.
 * Chat Report System.

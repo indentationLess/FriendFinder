@@ -10,7 +10,7 @@
 * [Features](#features)
 * [Documentation & Issues](#documentation--issues)
 * [Testing](#testing)
-* [How to Contribute](#How-to-Contribute)
+* [How to Contribute](#how-to-contribute)
 
 ---
 
@@ -42,9 +42,38 @@ And then running `sudo docker-compose up --build`
 * Chat Report System.
 
 ## Documentation & Issues
+
 Functional Documentation will be generated using [Docusaurus](https://docusaurus.io/) and added into the project.
 
 [Swagger](https://swagger.io) will be used for API documentation.
 
 ## Testing
+
 [Jest](https://jestjs.io/) is used for unit testing And E2E Testing will be done using [puppeteer](https://pptr.dev/)
+
+## How to Contribute
+
+This project follows the [AirBnb Javascript Style Guide](https://github.com/airbnb/javascript).
+
+This should be followed to maintain consistency.
+
+#### For Bugs this checklist should be followed
+
+* [ ] A **Bug**
+  * [ ] details expected state vs. actual state
+  * [ ] offers a step-by-step guide on how to reproduce the issue
+  * [ ] includes environment details
+        <br>_(e.g. physical device, operating system, browser)_
+  * [ ] may have additional assets attached
+        <br>_(e.g. screenshots, videos)_
+
+#### For Pull Requests to be accepted
+
+* All Acceptance criteria have to be met
+      <br>_(e.g. functional test is performed, no known defects exist, no regressions are introduced)_
+
+* [ ] The code is checked into Git, and is part of the primary development branch
+* [ ] The code is tested, and tests are successfully executed as part of a CI/CD pipeline
+* [ ] The code follows the agreed upon style guide and conventions.
+
+- [ ] The code has been reviewed by at least one team member other than its creator (four-eyes principle)

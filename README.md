@@ -32,7 +32,7 @@ And then running `sudo docker-compose up --build`
 * a signup/login feature.
 * analysis and recommendation algorithm.
 * matching system.
-* a multi-user chatting.
+* multi-user chatting.
 * User Interaction Features like:
   * Blocking
   * Adding

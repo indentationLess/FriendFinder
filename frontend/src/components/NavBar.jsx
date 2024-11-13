@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 
 function NavBar() {
   return (
-    <div className="w-full mx-auto flex justify-between items-center bg-gray-800 p-4 rounded-md">
+    <div className="w-full mx-auto flex justify-between bg-gray-800 p-4 rounded-md">
       <div className="flex-1">
         <Button variant="contained" color="primary" className="bg-blue-700">
           Friend Finder

@@ -7,7 +7,7 @@ function NavBar() {
   const isSignupPage = location.pathname === "/login";
 
   return (
-    <nav className="fixed top-0 left-0 w-full flex items-center justify-between bg-azure p-4">
+    <nav className="fixed top-0 left-0 w-full flex items-center justify-between bg-azure p-4 z-50">
       <div className="flex-1">
         <img
           src="/logo.png"

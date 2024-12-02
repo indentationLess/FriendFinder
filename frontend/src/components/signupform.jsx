@@ -72,22 +72,20 @@ function SignupForm() {
           <button className="w-full bg-blue-500 text-white py-2 rounded-full hover:bg-blue-600">
             Sign Up
           </button>
-          <p className="mt-6 text-center text-gray-600">
-            It has never been easier to find someone like you
-          </p>
         </div>
       </div>
       {/* Right Section: Slogan */}
-      <div className="hidden lg:flex lg:w-1/3 bg-blue-100 p-8 ml-auto mr-4 flex-col items-start justify-center text-left rounded-xl">
+      <div className="hidden lg:flex lg:w-1/3 bg-blue-100 p-8 ml-auto mr-4 flex-col items-start justify-center text-left rounded-xl m-[10px]">
         <h2 className="text-2xl font-semibold mb-4">
           It has never been easier to find someone like you!
+          <p className="mt-4 text-lg text-gray-700">Sign up now!</p>
         </h2>
+
         <img
-          src="/slogan-image.png"
+          src="/slogan.webp"
           alt="Slogan"
-          className="max-w-full max-h-60 shadow-md object-contain"
+          className="max-w-full max-h-60 rounded-xl shadow-md object-contain"
         />
-        <p className="mt-4 text-lg text-gray-700">Sign up now!</p>
       </div>
     </div>
   );

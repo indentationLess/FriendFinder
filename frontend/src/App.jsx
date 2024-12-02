@@ -14,7 +14,6 @@ function App() {
             path="/"
             element={
               <div className="h-screen flex flex-row items-center text-blue-200 p-4">
-                {/* Main content */}
               </div>
             }
           />

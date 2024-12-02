@@ -1,9 +1,12 @@
-const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config();
+import express from "express";
+import mongoose from "mongoose";
+// import User from "./models/user.js";
+import userRoutes from "./routes/user.route.js";
+import dotenv from "dotenv";
 
 const app = express();
 app.use(express.json());
+app.use('/users', userRoutes);
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://mongo:27017/friendfinder"; 
@@ -20,6 +23,5 @@ const connectWithRetry = () => {
 };
 
 connectWithRetry();
-app.get("/test", (req, res) => res.send("Server is running!"));
 app.get("/", (req, res) => res.send("API is running..."));
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

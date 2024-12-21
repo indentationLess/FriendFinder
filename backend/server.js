@@ -4,10 +4,13 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import dotenv from "dotenv";
+import cors from 'cors';
+
 
 const app = express();
 app.use(express.json());
 dotenv.config(); 
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://mongo:27017/friendfinder"; 

@@ -36,13 +36,10 @@ const accessChat = async (req, res) => {
 }
 const fetchChat = async (req, res) => {
 try {
-    chat.find({users: { $elemMatch: { $eq: req.user.id }}}).populate("users", "-password").populate("latestMessage").sort({updatedAt: -1}).populate("GroupAdmin", "-password").exec(function (err, result) {
-        if (err) {
-            res.status(409).json({ message: error.message });
-        }
-        res.status(200).send(result);
-    }
-    );
+    chat.find({users: { $elemMatch: { $eq: req.user.id }}}).populate("users", "-password").populate("latestMessage").sort({updatedAt: -1}).populate("GroupAdmin", "-password")
+    .then((chats) => {
+        res.status(200).send(chats);
+    })
 }
 catch (error) {
     res.status(409).json({ message: error.message });

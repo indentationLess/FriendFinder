@@ -1,5 +1,7 @@
 import Express from 'express';
+import { getAllUsers } from '../controllers/user.controller.js';
+import protect from '../middleware/authorizeuser.js';
 const Router = Express.Router();
-Router.get('/test', (req, res) => {res.send("API is running!")});
+Router.route('/').get(protect,getAllUsers);
 export default Router; 
   

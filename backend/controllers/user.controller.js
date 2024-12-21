@@ -18,7 +18,7 @@ const newUser = new User({ usersName, age, email, password: hashedPassword, toke
 try {await newUser.save();  
 res.status(201).json({ message: "User created successfully" });}
 catch (error) {
-     res.status(409).json({ message: error.message });
+     res.status(409).json({ message: "Not created" });
 }
 }
 export const SignIn = async (req, res) => {
@@ -36,4 +36,9 @@ export const SignIn = async (req, res) => {
     }
     res.status(200).json({ result: existingUser, token: GenerateJWT(existingUser.email) });
 }
+const getAllUsers = async (req, res) => {
+    const keyword = req.query.keyword ? { usersName: { $regex: req.query.keyword, $options: "i" } } : {};
+    const users = await User.find(keyword).find({id: { $ne: req.user.id }});
+    res.send(users);
+};
 // I'm so tired  

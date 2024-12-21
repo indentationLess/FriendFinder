@@ -3,6 +3,7 @@ import { HelmetProvider, Helmet } from "react-helmet-async";
 
 import SignupForm from "./components/signupform";
 import NavBar from "./components/NavBar";
+import ChatPopup from "./components/chatPopup";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               }
             />
           </Routes>
+          <ChatPopup />
         </div>
       </Router>
     </HelmetProvider>

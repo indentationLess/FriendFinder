@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 // import User from "./models/user.js";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
-// import messageRoutes from "./routes/message.route.js";
+import messageRoutes from "./routes/message.route.js";
 import dotenv from "dotenv";
 import cors from 'cors';
+import { io } from "socket.io";
 
 
 const app = express();
@@ -28,8 +29,15 @@ const connectWithRetry = () => {
 };
 app.use('/users', userRoutes);
 app.use('/SignUp',authRoutes); 
-// app.use('/message',messageRoutes);
+app.use('/message',messageRoutes);
 connectWithRetry();
 
 app.get("/", (req, res) => res.send("API is running..."));
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const server = app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+io = io(server, { pingTimeout: 60000 ,cors: { origin: "http://localhost:5000" } });
+io.on("connection", (socket) => {
+  console.log("a user connected");
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+});

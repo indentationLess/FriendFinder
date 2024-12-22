@@ -1,13 +1,25 @@
 import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "friendfinder-d883d.firebaseapp.com",
-  projectId: "friendfinder-d883d",
-  storageBucket: "friendfinder-d883d.firebasestorage.app",
-  messagingSenderId: "86573929321",
-  appId: "1:86573929321:web:3032caa8f7adfc5868a3f8"
+
+  apiKey: "AIzaSyBH6aFFSAQZhxUy7RZUJRBtifAhrkbX0GY",
+
+  authDomain: "friendfinder-a160d.firebaseapp.com",
+
+  projectId: "friendfinder-a160d",
+
+  storageBucket: "friendfinder-a160d.firebasestorage.app",
+
+  messagingSenderId: "155818288451",
+
+  appId: "1:155818288451:web:fdc750ae436548ee1abbf6"
+
 };
+
+if (!firebaseConfig.apiKey) {
+  console.error("Firebase API key is missing. Please check your environment variables.");
+  throw new Error("Firebase API key is missing.");
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

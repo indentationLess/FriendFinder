@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { app } from "../firebase";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -35,13 +36,24 @@ const LoginPage = () => {
       }
 
       // Handle successful login
-      // For example, save the token and navigate to the home page
       localStorage.setItem("token", data.token);
       navigate("/");
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+  const auth = getAuth(app);
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: "select_account" });
+    try {
+      const resultsFromGoogle = await signInWithPopup(auth, provider);
+      console.log(resultsFromGoogle);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -53,7 +65,11 @@ const LoginPage = () => {
             <h1 className="text-3xl font-bold">Login</h1>
           </div>
           <div className="flex flex-col sm:flex-row justify-around mb-4 space-y-2 sm:space-y-0 sm:space-x-2">
-            <button className="border flex items-center justify-center focus:ring-2 text-black px-6 py-2 rounded-full hover:bg-gray-200 whitespace-nowrap">
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="border flex items-center justify-center focus:ring-2 text-black px-6 py-2 rounded-full hover:bg-gray-200 whitespace-nowrap"
+            >
               <img
                 src="/google.webp"
                 alt="google icon"

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 const GenerateJWT = (id) => {
-    return jwt.sign({ id }, radiohead, {
+    return jwt.sign({ id }, "radiohead", {
         expiresIn: "30d",
     });
     }

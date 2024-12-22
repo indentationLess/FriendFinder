@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 // import User from "./models/user.js";
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
+// import messageRoutes from "./routes/message.route.js";
 import dotenv from "dotenv";
 import cors from 'cors';
 
@@ -27,6 +28,7 @@ const connectWithRetry = () => {
 };
 app.use('/users', userRoutes);
 app.use('/SignUp',authRoutes); 
+// app.use('/message',messageRoutes);
 connectWithRetry();
 
 app.get("/", (req, res) => res.send("API is running..."));

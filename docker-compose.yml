@@ -1,31 +1,26 @@
+version: '3.8'
+
 services:
   mongo:
-    image: mongo:latest
-    container_name: mongo
+    image: mongo:5.0
+    container_name: friendfinder_mongo
     ports:
       - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
 
   backend:
     build:
-      context: ./backend
-      dockerfile: ../docker/Dockerfile.backend
+      context: ./server
+      dockerfile: dockerfile.backend
     ports:
       - "5000:5000"
-    environment:
-      MONGO_URI: mongodb://mongo:27017/friendfinder
     depends_on:
       - mongo
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: ../docker/Dockerfile.frontend
+      context: ./client
+      dockerfile: dockerfile.frontend
     ports:
-      - "5173:5173"
+      - "80:80"
     depends_on:
       - backend
-
-volumes:
-  mongo-data:

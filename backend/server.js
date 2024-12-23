@@ -37,6 +37,11 @@ const server = app.listen(PORT, () => console.log(`Server running on port ${PORT
 io = io(server, { pingTimeout: 60000 ,cors: { origin: "http://localhost:5000" } });
 io.on("connection", (socket) => {
   console.log("a user connected");
+  socket.on("setup", (userData) => {
+    socket.join(userData._id);
+    socket.emit("connected");
+  });
+  socket.on("join chat", (room) => socket.join(room));
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });

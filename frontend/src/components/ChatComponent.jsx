@@ -1,9 +1,20 @@
 import React, { useState } from "react";
+import { use } from "react";
+import io from "socket.io-client";
 
 function ChatComponent() {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
-
+  const [socketConnected, setSocketConnected] = useState(false);
+  const ENDPOINT = "http://localhost:5000";
+  var socket, selectedChat;
+  useEffect(() => {
+  socket = io(ENDPOINT);
+  socket.emit("setup", user);
+  socket.on("connected", () => {
+    setSocketConnected(true);});
+  });
+  
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (currentMessage.trim()) {

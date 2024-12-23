@@ -51,8 +51,12 @@ function SignupForm() {
           <div className="mb-6">
             <h1 className="text-3xl font-bold">Get Started</h1>
           </div>
+
           <div className="flex flex-col sm:flex-row justify-around mb-4 space-y-2 sm:space-y-0 sm:space-x-2">
-            <button className="border flex items-center justify-center focus:ring-2 text-black px-6 py-2 rounded-full hover:bg-gray-200 whitespace-nowrap">
+            <button
+              type="button"
+              className="border flex items-center justify-center focus:ring-2 text-black px-6 py-2 rounded-full hover:bg-gray-200 whitespace-nowrap"
+            >
               <img
                 src="/google.webp"
                 alt="google icon"
@@ -60,7 +64,10 @@ function SignupForm() {
               />
               <span className="text-sm sm:text-base">Login with Google</span>
             </button>
-            <button className="border flex items-center justify-center focus:ring-2 text-black px-6 py-2 rounded-full hover:bg-gray-200 whitespace-nowrap">
+            <button
+              type="button"
+              className="border flex items-center justify-center focus:ring-2 text-black px-6 py-2 rounded-full hover:bg-gray-200 whitespace-nowrap"
+            >
               <img
                 src="/facebook.webp"
                 alt="facebook icon"
@@ -69,6 +76,7 @@ function SignupForm() {
               <span className="text-sm sm:text-base">Login with Facebook</span>
             </button>
           </div>
+
           <div className="text-center text-gray-500 my-4">OR</div>
           <div className="mb-4">
             <label
@@ -122,6 +130,7 @@ function SignupForm() {
             />
           </div>
 
+
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -144,8 +153,9 @@ function SignupForm() {
               </a>
             </div>
           </div>
+
           <div className="mb-4 flex items-center">
-            <input type="checkbox" id="terms" className="mr-2" />
+            <input type="checkbox" id="terms" className="mr-2" required />
             <label htmlFor="terms" className="text-sm">
               I agree to the{" "}
               <a href="#" className="text-blue-500 hover:underline">
@@ -164,14 +174,14 @@ function SignupForm() {
             {loading ? "Signing up..." : "Sign Up"}
           </button>
         </form>
+        </form>
       </div>
-      {/* Right Section: Slogan */}
+
       <div className="hidden lg:flex lg:w-1/3 bg-blue-100 p-8 ml-auto mr-4 flex-col items-start justify-center text-left rounded-xl m-[10px]">
         <h2 className="text-2xl font-semibold mb-4">
           It has never been easier to find someone like you!
-          <p className="mt-4 text-lg text-gray-700">Sign up now!</p>
         </h2>
-
+        <p className="mt-4 text-lg text-gray-700">Sign up now!</p>
         <img
           src="/slogan.webp"
           alt="Slogan"

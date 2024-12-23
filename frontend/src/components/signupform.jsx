@@ -130,7 +130,6 @@ function SignupForm() {
             />
           </div>
 
-
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -173,7 +172,6 @@ function SignupForm() {
           >
             {loading ? "Signing up..." : "Sign Up"}
           </button>
-        </form>
         </form>
       </div>
 

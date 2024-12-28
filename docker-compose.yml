@@ -12,7 +12,7 @@ services:
       context: ./backend
       dockerfile: ../docker/Dockerfile.backend
     ports:
-      - "5000:5000"
+      - "5002:5000"
     environment:
       MONGO_URI: mongodb://mongo:27017/friendfinder
     depends_on:
@@ -29,3 +29,4 @@ services:
 
 volumes:
   mongo-data:
+  backend_node_modules:

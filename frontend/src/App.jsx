@@ -16,10 +16,11 @@ import Onboard from "./pages/onboard";
 import ChatPopup from "./components/ChatPopup";
 import LoginPage from "./components/LoginForm";
 
-function AppContent() {
+function AppContent({ menuOpen, handleOnboard }) {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProfile, setSelectedProfile] = useState(null);
+
   // for testing
   const profiles = [
     {
@@ -66,10 +67,6 @@ function AppContent() {
     }
   };
 
-  const handleOnboard = () => {
-    navigate("/onboard");
-  };
-
   return (
     <div className="flex min-h-screen">
       {/* Main content - Left side */}
@@ -100,32 +97,44 @@ function AppContent() {
       </div>
 
       {/* right sidebar */}
-      <Paper
-        elevation={3}
-        className="w-[320px] fixed right-0 top-0 mt-16 h-[calc(100vh-4rem)] bg-white"
-      >
-        <div className="p-6">
-          <Typography variant="h5" className="mb-4 font-semibold">
-            Your Profile
-          </Typography>
-          <Typography variant="body1" className="mb-6 text-gray-600">
-            Complete your profile by selecting your interests
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleOnboard}
-            fullWidth
-          >
-            Set Your Interests
-          </Button>
-        </div>
-      </Paper>
+      {menuOpen && (
+        <Paper
+          elevation={3}
+          className="w-[320px] fixed right-0 top-0 mt-16 h-[calc(100vh-4rem)] bg-white"
+        >
+          <div className="p-6">
+            <Typography variant="h5" className="mb-4 font-semibold">
+              Your Profile
+            </Typography>
+            <Typography variant="body1" className="mb-6 text-gray-600">
+              Complete your profile by selecting your interests
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOnboard}
+              fullWidth
+            >
+              Set Your Interests
+            </Button>
+          </div>
+        </Paper>
+      )}
     </div>
   );
 }
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleOnboard = () => {
+    navigate("/onboard");
+  };
+
   return (
     <Router>
       <HelmetProvider>
@@ -133,11 +142,16 @@ function App() {
           <Helmet>
             <title>Friend Finder</title>
           </Helmet>
-          <NavBar />
+          <NavBar toggleMenu={toggleMenu} />
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupForm />} />
-            <Route path="/" element={<AppContent />} />
+            <Route
+              path="/"
+              element={
+                <AppContent menuOpen={menuOpen} handleOnboard={handleOnboard} />
+              }
+            />
             <Route path="/onboard" element={<Onboard />} />
             <Route path="/chat/:profileId" element={<ChatPage />} />
           </Routes>

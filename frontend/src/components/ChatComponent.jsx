@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { use } from "react";
+import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 
 function ChatComponent() {
@@ -7,19 +6,28 @@ function ChatComponent() {
   const [currentMessage, setCurrentMessage] = useState("");
   const [socketConnected, setSocketConnected] = useState(false);
   const ENDPOINT = "http://localhost:5000";
-  var socket, selectedChat;
+  const [socket, setSocket] = useState(null);
+  const user = { _id: "user_id" }; // Replace with actual user data
+
   useEffect(() => {
-  socket = io(ENDPOINT);
-  socket.emit("setup", user);
-  socket.on("connected", () => {
-    setSocketConnected(true);});
-  });
-  
+    const newSocket = io(ENDPOINT);
+    setSocket(newSocket);
+    newSocket.emit("setup", user);
+    newSocket.on("connected", () => {
+      setSocketConnected(true);
+    });
+
+    return () => newSocket.close();
+  }, [ENDPOINT]);
+
   const handleSendMessage = (e) => {
     e.preventDefault();
     if (currentMessage.trim()) {
       setMessages([...messages, { text: currentMessage, sent: true }]);
       setCurrentMessage("");
+      if (socket) {
+        socket.emit("new message", currentMessage);
+      }
     }
   };
 

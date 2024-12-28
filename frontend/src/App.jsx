@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,12 +6,12 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import SignupForm from "./components/signupform";
+import SignupForm from "./components/SignupForm"; // Ensure the case matches the file name
 import NavBar from "./components/NavBar";
 import ProfileCard from "./components/Card";
 import ChatPage from "./components/ChatPage";
-import ChatPopup from "./components/chatPopup";
-import LoginPage from "./components/LoginForm";
+import ChatPopup from "./components/ChatPopup"; // Ensure the case matches the file name
+import LoginPage from "./components/LoginForm"; // Ensure the case matches the file name
 
 function AppContent() {
   const navigate = useNavigate();

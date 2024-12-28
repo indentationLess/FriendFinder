@@ -91,7 +91,7 @@ function ChatPopup() {
           </div>
 
           {!isMinimized && (
-            <div className="h-[calc(32rem-4rem)]">
+            <div className="h-[calc(32rem-4rem)] overflow-y-auto">
               <ChatComponent />
             </div>
           )}

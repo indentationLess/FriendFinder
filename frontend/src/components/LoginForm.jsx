@@ -124,7 +124,7 @@ const LoginPage = () => {
               </a>
               <a
                 href="#"
-                onClick={() => navigate("/signupLogin")}
+                onClick={() => navigate("/signup")}
                 className="text-sm text-blue-500 hover:underline"
               >
                 Don't have an account? Sign Up here

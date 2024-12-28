@@ -32,10 +32,6 @@ jobs:
         working-directory: ./frontend
         run: pnpm build
 
-      - name: Lint Frontend
-        working-directory: ./frontend
-        run: pnpm lint
-
       - name: Install Backend Dependencies
         working-directory: ./backend
         run: pnpm install

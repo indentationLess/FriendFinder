@@ -29,10 +29,10 @@ const ProfileCard = ({ name, school, imageUrl, onAccept, onReject }) => {
     >
       <CardMedia
         component="img"
-        height="480"
+        height="460"
         image={imageUrl}
         alt={name}
-        className="h-[480px] w-full object-cover"
+        className="h-[460px] w-full object-cover"
       />
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent">
         <CardContent className="p-6">

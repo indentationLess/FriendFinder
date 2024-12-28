@@ -60,7 +60,7 @@ const StackCards = () => {
       <div className="flex min-h-screen">
         {/* Main content - Cards */}
         <div className="flex-1 mr-[620px] p-12">
-          <div className="min-w-[420px] max-h-[480px] mt-12 mx-auto">
+          <div className="min-w-[420px] max-h-[480px] mt-16 mx-auto">
             {profiles.map((profile, index) => (
               <div
                 key={profile.id}
@@ -110,7 +110,7 @@ const StackCards = () => {
             ))}
             
             {profiles.length === 0 && (
-              <div className="flex items-center justify-center h-[300px] bg-white rounded-lg shadow-lg">
+              <div className="flex items-center justify-center h-[400px] bg-white rounded-lg shadow-lg">
                 <Typography variant="h5">No more profiles to show</Typography>
               </div>
             )}
@@ -120,7 +120,7 @@ const StackCards = () => {
         {/* Right sidebar - Details */}
         <Paper 
           elevation={3} 
-          className="w-[620px] fixed right-1 top-0 mt-24 h-[calc(80vh-8rem)] bg-white rounded-lg"
+          className="w-[720px] fixed right-1 top-0 mt-16 h-[calc(95vh-6rem)] bg-white rounded-lg"
         >
           <div className="p-6">
             {selectedProfile ? (

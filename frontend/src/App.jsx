@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import { Button, Typography, Paper } from '@mui/material';
 import SignupForm from "./components/signupform";
 import NavBar from "./components/NavBar";
-import ProfileCard from "./components/Card";
+import ProfileCard from "./components/card";
 import ChatPage from "./components/ChatPage";
+import Onboard from "./pages/onboard";
 
 function AppContent() {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProfile, setSelectedProfile] = useState(null);
-  const [acceptedProfiles, setAcceptedProfiles] = useState([]);
-
+// for testing
   const profiles = [
     {
       id: 1,
@@ -19,24 +20,6 @@ function AppContent() {
       school: "DSAI school",
       imageUrl: "/api/placeholder/320/320"
     },
-    {
-      id: 2,
-      name: "User 2 - CSAI",
-      school: "DSAI school",
-      imageUrl: "/api/placeholder/320/320"
-    },
-    {
-      id: 3,
-      name: "User 3 - CSAI",
-      school: "DSAI school",
-      imageUrl: "/api/placeholder/320/320"
-    },
-    {
-      id: 4,
-      name: "User 4 - CSAI",
-      school: "DSAI school",
-      imageUrl: "/api/placeholder/320/320"
-    }
   ];
 
   useEffect(() => {
@@ -50,58 +33,66 @@ function AppContent() {
   };
 
   const handleReject = () => {
-    if (currentIndex < profiles.length - 1) {
-      const nextProfile = profiles[currentIndex + 1];
-      setSelectedProfile(nextProfile);
-      setCurrentIndex(prevIndex => prevIndex + 1);
-    }
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+    setSelectedProfile(profiles[currentIndex + 1]);
+  };
+
+  const handleOnboard = () => {
+    navigate('/onboard');
   };
 
   return (
-    <main className="container mx-auto px-6 py-8 mt-32">
-      <div className="flex justify-between items-start">
-        {/* Left card */}
-        <div className="mt-16">
-          {selectedProfile && (
-            <div className="w-[450px]">
-              <ProfileCard
-                name={selectedProfile.name}
-                school={selectedProfile.school}
-                imageUrl={selectedProfile.imageUrl}
-                onAccept={handleAccept}
-                onReject={handleReject}
-              />
+    <div className="flex min-h-screen">
+      {/* Main content - Left side */}
+      <div className="flex-1 mr-[320px] p-6">
+        {selectedProfile && (
+          <div className="flex flex-col items-center">
+            <ProfileCard profile={selectedProfile} />
+            <div className="flex gap-4 mt-4">
+              <Button
+                variant="contained"
+                color="error"
+                onClick={handleReject}
+                className="min-w-[100px]"
+              >
+                Reject
+              </Button>
+              <Button
+                variant="contained"
+                color="success"
+                onClick={handleAccept}
+                className="min-w-[100px]"
+              >
+                Accept
+              </Button>
             </div>
-          )}
-        </div>
-
-        {/* Right stacked cards */}
-        <div className="relative w-[450px] h-[600px] -ml-32 mt-16">
-          {profiles.slice(currentIndex + 1).map((profile, index) => (
-            <div
-              key={profile.id}
-              className="absolute left-0 top-0"
-              style={{
-                transform: `translateX(${index * 20}px) translateY(${index * 8}px)`,
-                zIndex: profiles.length - (index + 1),
-                opacity: Math.max(1 - (index * 0.15), 0.4)
-              }}
-            >
-              <div className="w-[450px]">
-                <ProfileCard
-                  name={profile.name}
-                  school={profile.school}
-                  imageUrl={profile.imageUrl}
-                  onAccept={() => {}}
-                  onReject={() => {}}
-                  showActions={false}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
-    </main>
+
+      {/* right sidebar */}
+      <Paper 
+        elevation={3} 
+        className="w-[320px] fixed right-0 top-0 mt-16 h-[calc(100vh-4rem)] bg-white"
+      >
+        <div className="p-6">
+          <Typography variant="h5" className="mb-4 font-semibold">
+            Your Profile
+          </Typography>
+          <Typography variant="body1" className="mb-6 text-gray-600">
+            Complete your profile by selecting your interests
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOnboard}
+            fullWidth
+          >
+            Set Your Interests
+          </Button>
+        </div>
+      </Paper>
+    </div>
   );
 }
 
@@ -117,6 +108,8 @@ function App() {
           <Routes>
             <Route path="/login" element={<SignupForm />} />
             <Route path="/" element={<AppContent />} />
+            <Route path="/onboard" element={<Onboard />} />
+            {/* Just add the Chat componenet: Omar */}
             <Route path="/chat/:profileId" element={<ChatPage />} />
           </Routes>
         </div>

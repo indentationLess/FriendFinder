@@ -6,12 +6,12 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
-import SignupForm from "./components/SignupForm"; // Ensure the case matches the file name
+import SignupForm from "./components/SignupForm";
 import NavBar from "./components/NavBar";
 import ProfileCard from "./components/Card";
 import ChatPage from "./components/ChatPage";
-import ChatPopup from "./components/ChatPopup"; // Ensure the case matches the file name
-import LoginPage from "./components/LoginForm"; // Ensure the case matches the file name
+import ChatPopup from "./components/ChatPopup";
+import LoginPage from "./components/LoginForm";
 
 function AppContent() {
   const navigate = useNavigate();

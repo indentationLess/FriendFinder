@@ -29,10 +29,10 @@ const ProfileCard = ({ name, school, imageUrl, onAccept, onReject }) => {
     >
       <CardMedia
         component="img"
-        height="400"
+        height="480"
         image={imageUrl}
         alt={name}
-        className="h-[350px] w-full object-cover"
+        className="h-[480px] w-full object-cover"
       />
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent">
         <CardContent className="p-6">
@@ -42,44 +42,6 @@ const ProfileCard = ({ name, school, imageUrl, onAccept, onReject }) => {
           <Typography variant="h6" className="text-yellow-400">
             {school}
           </Typography>
-          {isExpanded && (
-            <div className="flex justify-center gap-4 mt-4">
-              <Button
-                variant="contained"
-                sx={{
-                  borderRadius: '20px',
-                  backgroundColor: '#2196f3',
-                  '&:hover': {
-                    backgroundColor: '#1976d2'
-                  }
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onReject();
-                }}
-                startIcon={<CloseIcon />}
-              >
-                Reject
-              </Button>
-              <Button
-                variant="contained"
-                sx={{
-                  borderRadius: '20px',
-                  backgroundColor: '#2196f3',
-                  '&:hover': {
-                    backgroundColor: '#1976d2'
-                  }
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onAccept();
-                }}
-                startIcon={<CheckIcon />}
-              >
-                Accept
-              </Button>
-            </div>
-          )}
         </CardContent>
       </div>
     </StyledCard>

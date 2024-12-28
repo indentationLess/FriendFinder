@@ -8,23 +8,37 @@ import ProfileCard from "./components/card";
 import ChatPage from "./components/ChatPage";
 import Onboard from "./pages/onboard";
 
-function AppContent() {
+const StackCards = () => {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedProfile, setSelectedProfile] = useState(null);
-// for testing
-  const profiles = [
+  const [profiles, setProfiles] = useState([
     {
       id: 1,
-      name: "User 1 - CSAI",
-      school: "DSAI school",
+      name: "Omar Ali - CSAI",
+      school: "SWD school",
       imageUrl: "/api/placeholder/320/320"
     },
-  ];
+    {
+      id: 2,
+      name: "Ali - CSAI",
+      school: "SWD school",
+      imageUrl: "/api/placeholder/320/320"
+    },
+    {
+      id: 3,
+      name: "Ahmad - Design",
+      school: "SWD school",
+      imageUrl: "/api/placeholder/320/320"
+    }
+  ]);
+
+  const [selectedProfile, setSelectedProfile] = useState(null);
 
   useEffect(() => {
-    setSelectedProfile(profiles[0]);
-  }, []);
+    if (profiles.length > 0) {
+      setSelectedProfile(profiles[currentIndex]);
+    }
+  }, [currentIndex, profiles]);
 
   const handleAccept = () => {
     if (selectedProfile) {
@@ -33,89 +47,122 @@ function AppContent() {
   };
 
   const handleReject = () => {
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-    setSelectedProfile(profiles[currentIndex + 1]);
-  };
-
-  const handleOnboard = () => {
-    navigate('/onboard');
+    if (currentIndex < profiles.length - 1) {
+      setCurrentIndex(prev => prev + 1);
+    } else {
+      setProfiles([]);
+    }
   };
 
   return (
-    <div className="flex min-h-screen">
-      {/* Main content - Left side */}
-      <div className="flex-1 mr-[320px] p-6">
-        {selectedProfile && (
-          <div className="flex flex-col items-center">
-            <ProfileCard profile={selectedProfile} />
-            <div className="flex gap-4 mt-4">
-              <Button
-                variant="contained"
-                color="error"
-                onClick={handleReject}
-                className="min-w-[100px]"
+    <>
+      <NavBar />
+      <div className="flex min-h-screen">
+        {/* Main content - Cards */}
+        <div className="flex-1 mr-[620px] p-12">
+          <div className="min-w-[420px] max-h-[480px] mt-12 mx-auto">
+            {profiles.map((profile, index) => (
+              <div
+                key={profile.id}
+                className={`transition-all duration-300 ${
+                  index < currentIndex ? 'hidden' : 
+                  index === currentIndex ? 'block' : 
+                  'hidden'
+                }`}
               >
-                Reject
-              </Button>
-              <Button
-                variant="contained"
-                color="success"
-                onClick={handleAccept}
-                className="min-w-[100px]"
-              >
-                Accept
-              </Button>
-            </div>
+                <ProfileCard 
+                  name={profile.name}
+                  school={profile.school}
+                  imageUrl={profile.imageUrl}
+                />
+                
+                {index === currentIndex && (
+                  <div className="flex justify-center gap-3 mt-3">
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#00498E",
+                        '&:hover': {
+                          backgroundColor: "#2F5C84",
+                        }
+                      }}
+                      onClick={handleReject}
+                      className="min-w-[100px]"
+                    >
+                      Reject
+                    </Button>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        backgroundColor: "#00498E",
+                        '&:hover': {
+                          backgroundColor: "#2F5C84",
+                        }
+                      }}
+                      onClick={handleAccept}
+                      className="min-w-[100px]"
+                    >
+                      Accept
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))}
+            
+            {profiles.length === 0 && (
+              <div className="flex items-center justify-center h-[300px] bg-white rounded-lg shadow-lg">
+                <Typography variant="h5">No more profiles to show</Typography>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-
-      {/* right sidebar */}
-      <Paper 
-        elevation={3} 
-        className="w-[320px] fixed right-0 top-0 mt-16 h-[calc(100vh-4rem)] bg-white"
-      >
-        <div className="p-6">
-          <Typography variant="h5" className="mb-4 font-semibold">
-            Your Profile
-          </Typography>
-          <Typography variant="body1" className="mb-6 text-gray-600">
-            Complete your profile by selecting your interests
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleOnboard}
-            fullWidth
-          >
-            Set Your Interests
-          </Button>
         </div>
-      </Paper>
-    </div>
+
+        {/* Right sidebar - Details */}
+        <Paper 
+          elevation={3} 
+          className="w-[620px] fixed right-1 top-0 mt-24 h-[calc(80vh-8rem)] bg-white rounded-lg"
+        >
+          <div className="p-6">
+            {selectedProfile ? (
+              <>
+                <Typography variant="h5" className="mb-4 font-bold text-gray-800">
+                  {selectedProfile.name}
+                </Typography>
+                <Typography variant="body1" className="mb-2 text-yellow-500 font-semibold">
+                  {selectedProfile.school}
+                </Typography>
+              </>
+            ) : (
+              <Typography variant="h5" className="mb-4 font-semibold">
+                No profile selected
+              </Typography>
+            )}
+          </div>
+        </Paper>
+      </div>
+    </>
   );
-}
+};
 
 function App() {
-  return (
-    <Router>
-      <HelmetProvider>
-        <div className="min-h-screen bg-gray-100">
-          <Helmet>
-            <title>Friend Finder</title>
-          </Helmet>
-          <NavBar />
-          <Routes>
-            <Route path="/login" element={<SignupForm />} />
-            <Route path="/" element={<AppContent />} />
-            <Route path="/onboard" element={<Onboard />} />
-            {/* Just add the Chat componenet: Omar */}
-            <Route path="/chat/:profileId" element={<ChatPage />} />
-          </Routes>
-        </div>
-      </HelmetProvider>
-    </Router>
-  );
-}
+    return (
+      <Router>
+        <HelmetProvider>
+          <div className="min-h-screen bg-gray-100">
+            <Helmet>
+              <title>Friend Finder</title>
+            </Helmet>
+            <NavBar />
+            <Routes>
+              <Route path="/login" element={<SignupForm />} />
+              <Route path="/" element={<StackCards />} />
+              <Route path="/onboard" element={<Onboard />} />
+              <Route path="/chat/:profileId" element={<ChatPage />} />
+            </Routes>
+          </div>
+        </HelmetProvider>
+      </Router>
+    );
+  }
 
 export default App;

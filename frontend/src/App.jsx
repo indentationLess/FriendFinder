@@ -16,7 +16,7 @@ import Onboard from "./pages/onboard";
 import ChatPopup from "./components/ChatPopup";
 import LoginPage from "./components/LoginForm";
 
-function AppContent({ menuOpen, handleOnboard }) {
+function AppContent({ menuOpen, setMenuOpen }) {
   const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedProfile, setSelectedProfile] = useState(null);
@@ -65,6 +65,11 @@ function AppContent({ menuOpen, handleOnboard }) {
       setSelectedProfile(nextProfile);
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
+  };
+
+  const handleOnboard = () => {
+    navigate("/onboard");
+    setMenuOpen(false); // Optionally close menu when navigating
   };
 
   return (
@@ -131,10 +136,6 @@ function App() {
     setMenuOpen(!menuOpen);
   };
 
-  const handleOnboard = () => {
-    navigate("/onboard");
-  };
-
   return (
     <Router>
       <HelmetProvider>
@@ -149,7 +150,7 @@ function App() {
             <Route
               path="/"
               element={
-                <AppContent menuOpen={menuOpen} handleOnboard={handleOnboard} />
+                <AppContent menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
               }
             />
             <Route path="/onboard" element={<Onboard />} />

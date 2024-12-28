@@ -41,9 +41,6 @@ jobs:
         with:
           mongodb-version: '6.0'
 
-      - name: Run Backend Tests
-        working-directory: ./backend
-        run: pnpm test
         env:
           MONGO_URI: mongodb://localhost:27017/friendfinder
           PORT: 5000

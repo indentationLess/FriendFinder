@@ -8,5 +8,9 @@ export default defineConfig({
     watch: {
       usePolling: true
     }
-  }
+  },
+  optimizeDeps: {
+    include: ["firebase/app", "firebase/auth"],
+  },
 })
+

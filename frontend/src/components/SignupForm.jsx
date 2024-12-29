@@ -1,33 +1,53 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    usersName: "",
+    age: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const validateEmail = (email) => {
-    const regex = /^s-[a-zA-Z]+@zewailcity\.edu\.eg$/;
-    return regex.test(email);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateEmail(email)) {
-      setEmailError(
-        "Please enter a valid Zewail City email (s-username@zewailcity.edu.eg)"
-      );
-      return;
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:5000/SignUp/SignUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Signup failed");
+      }
+
+      navigate("/login");
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-    setEmailError("");
-    console.log("Form submitted!");
-    console.log("Email:", email);
-    console.log("Password:", password);
   };
 
   return (
     <div className="flex h-screen">
       <div className="bg-white p-8 max-w-md w-full flex-1 flex items-center justify-center overflow-y-auto">
-        <form className="w-full" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="w-full">
           <div className="mb-6">
             <h1 className="text-3xl font-bold">Get Started</h1>
           </div>
@@ -58,6 +78,39 @@ function SignupForm() {
           </div>
 
           <div className="text-center text-gray-500 my-4">OR</div>
+          <div className="mb-4">
+            <label
+              htmlFor="usersName"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="usersName"
+              value={formData.usersName}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label
+              htmlFor="age"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Age
+            </label>
+            <input
+              type="number"
+              id="age"
+              value={formData.age}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
+            />
+          </div>
 
           <div className="mb-4">
             <label
@@ -69,19 +122,12 @@ function SignupForm() {
             <input
               type="email"
               id="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="s-AzureDiamond@zewailcity.edu.eg"
-              className={`w-full px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none ${
-                emailError ? "border-red-500" : ""
-              }`}
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailError("");
-              }}
+              className="w-full px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              required
             />
-            {emailError && (
-              <p className="text-red-500 text-sm mt-1">{emailError}</p>
-            )}
           </div>
 
           <div className="mb-4">
@@ -94,10 +140,11 @@ function SignupForm() {
             <input
               type="password"
               id="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Hunter2"
               className="w-full px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <div className="text-right mt-2">
               <a href="#" className="text-sm text-blue-500 hover:underline">
@@ -116,11 +163,14 @@ function SignupForm() {
             </label>
           </div>
 
+          {error && <div className="text-red-500 mb-4">{error}</div>}
+
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-full hover:bg-blue-600"
+            disabled={loading}
+            className="w-full bg-blue-500 text-white py-2 rounded-full hover:bg-blue-600 disabled:bg-blue-300"
           >
-            Sign Up
+            {loading ? "Signing up..." : "Sign Up"}
           </button>
         </form>
       </div>

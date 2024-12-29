@@ -1,7 +1,9 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
-function NavBar() {
+function NavBar({ toggleMenu }) {
   const location = useLocation();
   const navigate = useNavigate();
   const isSignupPage = location.pathname === "/login";
@@ -26,6 +28,14 @@ function NavBar() {
           >
             Sign In
           </button>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleMenu}
+          >
+            <MenuIcon />
+          </IconButton>
         </div>
       )}
     </nav>

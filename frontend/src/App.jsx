@@ -142,6 +142,7 @@ function App() {
         <div className="min-h-screen bg-gray-100">
           <Helmet>
             <title>Friend Finder</title>
+            <link rel="icon" type="image/x-icon" href="/public/logo.png" />
           </Helmet>
           <NavBar toggleMenu={toggleMenu} />
           <Routes>

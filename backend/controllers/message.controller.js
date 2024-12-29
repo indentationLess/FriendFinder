@@ -1,6 +1,6 @@
 import Message from "../models/message.js";
 import User from "../models/user.js";
-import Chat from "../models/Chat.js"; // Fixed capitalization
+import Chat from "../models/Chat.js";
 
 const sendMessage = async (req, res) => {
     const { chatID, content } = req.body;
@@ -32,3 +32,16 @@ const sendMessage = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 };
+
+const getMessages = async (req, res) => {
+    try {
+        const messages = await Message.find({ chat: req.params.chatId })
+            .populate("sender", "name pic email")
+            .populate("chat");
+        res.status(200).json(messages);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+};
+
+export { sendMessage, getMessages };
